@@ -2,45 +2,55 @@
 
 int main() 
 {
-      int arrival_time[10], burst_time[10], temp[10];
-      int i, smallest, count = 0, time, limit;
-      double wait_time = 0, turnaround_time = 0, end;
-      float average_waiting_time, average_turnaround_time;
+      int n,art[n], bt[n], temp[n];
+      //n is number of processes
+      //art[i] is the arrival time of i-th process
+      //bt[i] is the burst time of i-th process
+      int i, smallest, count = 0, time;
+      double wt = 0, tat = 0, end;
+      // wt is waiting time , tat is turnaround time
+      float awt, atat;
+      // awt is average waiting time and atat is average turnaround time
       printf("\nEnter the Total Number of Processes:\t");
-      scanf("%d", &limit); 
-      printf("\nEnter Details of %d Processes\n", limit);
-      for(i = 0; i < limit; i++)
+      scanf("%d", &n); 
+      printf("\nEnter Details of %d Processes\n", n);
+      for(i = 0; i < n; i++)
       {
             printf("\nEnter Arrival Time:\t");
-            scanf("%d", &arrival_time[i]);
+            scanf("%d", &art[i]);
             printf("Enter Burst Time:\t");
-            scanf("%d", &burst_time[i]); 
-            temp[i] = burst_time[i];
+            scanf("%d", &bt[i]); 
+            temp[i] = bt[i];
+            if(art[i]<0 || bt[i]<0)// time is always positive
+            {
+            	printf("ARRIVAL TIME OR BURST TIME CANT BE NEGATIVE\n");
+            	return 0;
+			}
       }  
       
-      burst_time[9] = 9999;  
-      for(time = 0; count != limit; time++)
+      bt[9] = 9999;  
+      for(time = 0; count != n; time++)
       {
             smallest = 9;
-            for(i = 0; i < limit; i++)
+            for(i = 0; i < n; i++)
             {
-                  if(arrival_time[i] <= time && burst_time[i] < burst_time[smallest] && burst_time[i] > 0)
+                  if(art[i] <= time && bt[i] < bt[smallest] && bt[i] > 0)
                   {
                         smallest = i;
                   }
             }
-            burst_time[smallest]--;
-            if(burst_time[smallest] == 0)
+            bt[smallest]--;
+            if(bt[smallest] == 0)
             {
                   count++;
                   end = time + 1;
-                  wait_time = wait_time + end - arrival_time[smallest] - temp[smallest];
-                  turnaround_time = turnaround_time + end - arrival_time[smallest];
+                  wt = wt + end - art[smallest] - temp[smallest];
+                  tat = tat + end - art[smallest];
             }
       }
-      average_waiting_time = wait_time / limit; 
-      average_turnaround_time = turnaround_time / limit;
-      printf("\n\nAverage Waiting Time:\t%lf\n", average_waiting_time);
-      printf("Average Turnaround Time:\t%lf\n", average_turnaround_time);
+      awt = wt / n; 
+      atat = tat / n;
+      printf("\n\nAverage Waiting Time:\t%lf\n", awt);
+      printf("Average Turnaround Time:\t%lf\n", atat);
       return 0;
 }
