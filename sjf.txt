@@ -27,7 +27,23 @@ int main()
             	return 0;
 			}
       }  
-      
+      // checking arrival time are not same
+      for (i=0;i<n;i++)
+      {
+      	int j=0;
+      	for(j=0;j<n;j++)
+      	{
+		   if(j!=i)
+		   {
+		   	if(art[j]==art[i])
+		   	{
+			 printf("TWO PROCESSES CANNOT ARRIVE AT SAME TIME\n");
+			 return 0;
+			   }
+			   
+		  }
+		}
+	  }
       bt[9] = 9999;  
       for(time = 0; count != n; time++)
       {
